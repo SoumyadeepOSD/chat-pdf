@@ -11,7 +11,6 @@ import os
 
 def main():
     load_dotenv()
-    OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
     st.set_page_config("Chat with multiple PDF")
     st.header("Chat with PDF")
 
@@ -34,9 +33,7 @@ def main():
         chunks = text_splitter.split_text(text)
         
         #Openai Embeddings
-        embeddings = OpenAIEmbeddings(
-            openai_api_key=OPENAI_API_KEY,
-        )
+        embeddings = OpenAIEmbeddings()
         knowledge_base = FAISS.from_texts(chunks, embeddings)
         
         #user question
