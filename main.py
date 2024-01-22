@@ -11,8 +11,8 @@ from pathlib import Path
 
 
 def main():
-    load_dotenv(Path(".ENV"))
-    OPEN_API_KEY = os.getenv("OPEN_API_KEY") or st.secrets["OPEN_API_KEY"]
+    load_dotenv(Path(".streamlit\.ENV"))
+    OPEN_API_KEY = os.getenv("OPEN_API_KEY") 
     YOUR_ORGANIZATION_ID = os.getenv("YOUR_ORGANIZATION_ID")
     st.set_page_config("Chat with multiple PDF")
     st.header("Chat with PDF")
@@ -56,4 +56,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
