@@ -1,4 +1,5 @@
 # Welcome to my project Chat-PDF
+![Alt text](image.png)
 
 ## How it works?
 - It works using OpenAI LLM Model faciliating with Langchain functionality. It uses OpenAI embeddings Vetor database to store and generate results based upon the uploaded pdf file. 
