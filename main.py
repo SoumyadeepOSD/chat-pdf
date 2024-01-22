@@ -3,7 +3,7 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain_community.llms import OpenAI
 from langchain.vectorstores import FAISS
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 from PyPDF2 import PdfReader
 import streamlit as st
 import os
@@ -11,8 +11,11 @@ from pathlib import Path
 
 
 def main():
-    load_dotenv(Path(".streamlit\.ENV"))
-    openai_api_key = os.getenv("OPEN_API_KEY") 
+    load_dotenv(find_dotenv())
+    os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+    OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+    print(OPENAI_API_KEY)
+    # os.getenv("OPENAI_API_KEY") 
     YOUR_ORGANIZATION_ID = os.getenv("YOUR_ORGANIZATION_ID")
     st.set_page_config("Chat with multiple PDF")
     st.header("Chat with PDF")
@@ -37,7 +40,7 @@ def main():
         
             #Openai Embeddings
             embeddings = OpenAIEmbeddings(
-                openai_api_key= openai_api_key
+                openai_api_key= OPENAI_API_KEY
             )
             knowledge_base = FAISS.from_texts(chunks, embeddings)
         
@@ -47,7 +50,7 @@ def main():
                 trigger = st.button("Submit")
                 if trigger:
                     docs = knowledge_base.similarity_search(user_question)
-                    llm = OpenAI(openai_api_key=openai_api_key, openai_organization=YOUR_ORGANIZATION_ID)
+                    llm = OpenAI(openai_api_key=OPENAI_API_KEY, openai_organization=YOUR_ORGANIZATION_ID)
                     chain = load_qa_chain(llm, chain_type="stuff")
                     response = chain.run(input_documents=docs, question=user_question)
                     st.write(response)
