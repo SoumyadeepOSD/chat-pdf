@@ -14,7 +14,6 @@ def main():
     load_dotenv(find_dotenv())
     os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
     OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-    print(OPENAI_API_KEY)
     # os.getenv("OPENAI_API_KEY") 
     YOUR_ORGANIZATION_ID = os.getenv("YOUR_ORGANIZATION_ID")
     st.set_page_config("Chat with multiple PDF")
